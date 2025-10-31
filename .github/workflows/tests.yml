@@ -1,0 +1,37 @@
+name: Run Kinopoisk Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Install Chrome
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y chromium-browser chromium-chromedriver
+    
+    - name: Run API tests
+      run: |
+        python -m pytest tests/test_api.py -m api -v --alluredir=allure-results
+    
+    - name: Run UI tests
+      run: |
+        python -m pytest tests/test_ui.py -m ui -v --alluredir=allure-results
