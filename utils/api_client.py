@@ -1,34 +1,31 @@
 import requests
 import allure
 import json
-from config.settings import settings
+from config.constants import constants
 
 
 class KinopoiskAPIClient:
     def __init__(self):
-        self.base_url = settings.KINOPOISK_API_URL
+        self.base_url = constants.KINOPOISK_API_URL
         self.headers = {
-            "X-API-KEY": settings.API_KEY,
+            "X-API-KEY": constants.API_KEY,
             "Content-Type": "application/json"
         }
-    
+
     @allure.step("GET запрос к {endpoint}")
     def get(self, endpoint, params=None):
         url = f"{self.base_url}/{endpoint.lstrip('/')}"
-        response = requests.get(
-            url, 
-            headers=self.headers, 
-            params=params,
-            timeout=settings.API_TIMEOUT
-        )
-        
-        # Логирование для отладки
         allure.attach(
-            f"URL: {url}\nParams: {params}\nStatus Code: {response.status_code}",
+            f"URL: {url}\nParams: {params}",
             name="Request Details",
             attachment_type=allure.attachment_type.TEXT
         )
-        
+        response = requests.get(
+            url,
+            headers=self.headers,
+            params=params,
+            timeout=constants.API_TIMEOUT
+        )
         try:
             response_data = response.json()
             allure.attach(
@@ -36,11 +33,10 @@ class KinopoiskAPIClient:
                 name="Response Body",
                 attachment_type=allure.attachment_type.JSON
             )
-        except:
+        except ValueError:
             allure.attach(
                 response.text,
                 name="Response Body",
                 attachment_type=allure.attachment_type.TEXT
             )
-        
         return response
