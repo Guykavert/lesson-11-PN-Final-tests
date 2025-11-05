@@ -82,7 +82,8 @@ class TestKinopoiskAPI:
             assert response.status_code == 404, "Expected 404"
         with allure.step("Проверить тело ответа"):
             data = response.json()
-            assert not data.get("data"), "Data should be empty"
+            error_msg = "Data should be None for non-existent movie"
+            assert data.get("data") is None, error_msg
 
 
 @pytest.mark.api

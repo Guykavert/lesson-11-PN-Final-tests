@@ -26,7 +26,7 @@ class TestKinopoiskUI:
     @pytest.mark.parametrize("search_query,expected_text", [
         (constants.TEST_MOVIE_TITLE, "Интерстеллар"),
         (constants.TEST_MOVIE_FRAGMENT, "Брат"),
-        ("Interstellar", "Interstellar")
+        (constants.TEST_MOVIE_ENGLISH, "Interstellar")
     ])
     @allure.story("Поиск фильмов")
     @allure.title("Поиск фильма по запросу")

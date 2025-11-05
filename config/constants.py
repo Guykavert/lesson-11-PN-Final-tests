@@ -12,6 +12,7 @@ class Constants:
     TEST_PASSWORD = os.getenv("TEST_PASSWORD")
     TEST_MOVIE_TITLE = "Интерстеллар"
     TEST_MOVIE_FRAGMENT = "брат"
+    TEST_MOVIE_ENGLISH = "Interstellar"
     TEST_MOVIE_ID = 301
     TEST_PERSON_ID = 63859
     INVALID_MOVIE_ID = 999999
