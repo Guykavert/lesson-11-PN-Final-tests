@@ -10,7 +10,7 @@ class MainPage(BasePage):
     LOGIN_FORM = (By.CSS_SELECTOR, ".auth-form")
     SEARCH_RESULTS = (By.CSS_SELECTOR, ".search-results")
 
-    @allure.step("Выполнить поиск фильма '{query}'")
+    @allure.step("Выполнить поиск фильма")
     def search_movie(self, query):
         self.type_text(self.SEARCH_INPUT, query)
         self.click(self.SEARCH_BUTTON)
